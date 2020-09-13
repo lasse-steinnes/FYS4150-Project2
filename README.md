@@ -6,6 +6,6 @@ Draft of code structure. (see rene's intro to cpp/python classes and os librarie
 * Python class for plotting, data analysis etc
 * Folder: Results 
 * Folder: cpp-files
-- with use of hpp to define class structures, and cpps for each class
+    -  with use of hpp to define class structures, and cpps for each class
 
 
