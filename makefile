@@ -1,7 +1,8 @@
+
 all: compile execute
 
 compile:
-	c++ -o main2.out main2.cpp project2.cpp -larmadillo
+	c++ -o main.out $(wildcard *.cpp) -larmadillo
 
 execute:
-	./main2.out
+	./main.out
