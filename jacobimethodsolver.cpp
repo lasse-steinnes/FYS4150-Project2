@@ -1,28 +1,25 @@
 #include "jacobimethodsolver.hpp"
+#include<iostream>
+using namespace std;
 
 //Setting up the superclass for Jacobi's method with rotational algorithm to be used in all derived classes
 
-void JacobiMethodSolver::initialize(int N){
+void JacobiMethodSolver::initialize(int N, double rho_max){
   //initialize variables to set up Jacobis algorithm
   //to be used in all derived classes
   m_N = N;
-  double h = (double) 1/(m_N + 1);         //steplength
+  rhoN = rho_max;
+  double h = (double) rhoN/(m_N+1);         //steplength m_N
   double hh = h*h;
-
   //creating matrix A
-  A = mat(m_N,m_N);
-  for (int i = 1; i < m_N-1; i++){
-    A(i,i) = 2;
-    A(i,i+1) = -1;
-    A(i,i-1) = -1;
-  }
-  A(0,0) = 2;
-  A(N-1,N-1) = 2;
-  A(N-1,N-2) = -1;
-  A(0,1) = -1;
-
-  A = (1/hh)*A;
-
+  A = zeros<mat>(m_N,m_N);
+  for (int i = 0; i < m_N; ++i){    //n*n elements,n-1 highest index
+      A(i,i) = 2/hh; //diagonal elements
+    }
+  for (int i = 0; i < m_N-1; ++i){
+      A(i+1,i) = -1/hh; // Fill in for elemnts below diag
+      A(i,i+1) = -1/hh; // Fill in for elements above diag
+    }
 }
 
 //finding maximal absolute offdiagonal element of matrix A, and its specific index (k,l)

@@ -17,19 +17,20 @@ int main(int argc, char const *argv[]){
   cin >> task;
 
   int N;
+  double rho_max = 1;
   //run task b)
   if (task==0){
     JacobiMethodSolver mysolver;
     cout << "Number of grid points (N) = ";
     cin >> N;
-    mysolver.initialize(N);
+    mysolver.initialize(N,rho_max);
   }
 
   if (task==1){
     BucklingBeamSolver mysolver;
     cout << "Number of grid points (N) = ";
     cin >> N;
-    mysolver.init(N);
+    mysolver.init(N,rho_max);
     mysolver.solve();
     //mysolver.write_transformation_func_to_file();
 

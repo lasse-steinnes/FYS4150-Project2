@@ -13,13 +13,13 @@ private:
 
 protected:
   int m_N;
-  double max_offdiag;
   vec m_rho, m_l;      //dimensionless length rho and the different computed eigenvalues m_l
   mat A, V;          //Our tridiagonal matrix A stored in a matrix
   ofstream m_ofile;
+  double h,rhoN, max_offdiag;
 
 public:
-  void initialize(int N);     //public init function to be used in all derived classes and outside the superclass
+  void initialize(int N, double rho_max);     //public init function to be used in all derived classes and outside the superclass
   void max_offdiag_element();
   void rotating_matrixA();
   void finding_eigenvector();
@@ -32,7 +32,7 @@ private:
   int transformations;
 
 public:
-  void init(int N);    ////special init function for this specific derived class
+  void init(int N, double rho_max);    ////special init function for this specific derived class
   void solve();
   void write_transformation_func_to_file();
 
@@ -44,7 +44,7 @@ class OneElectronSolver : public JacobiMethodSolver {
 private:
 
 public:
-  void init(int N);   //special init function for this specific derived class
+  void init(int N, double rho_max);   //special init function for this specific derived class
 
 };
 
@@ -54,7 +54,7 @@ class TwoElectronsSolver : public JacobiMethodSolver {
 private:
 
 public:
-  void init(int N);    //special init function for this specific derived class
+  void init(int N, double rho_max, double omega_r);    //special init function for this specific derived class
 
 };
 
