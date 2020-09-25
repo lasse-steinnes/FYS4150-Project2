@@ -1,5 +1,6 @@
 #include "jacobimethodsolver.hpp"
 #include<iostream>
+#include<string>
 using namespace std;
 
 //Setting up the superclass for Jacobi's method with rotational algorithm to be used in all derived classes
@@ -89,7 +90,8 @@ void JacobiMethodSolver::solve(){
 
 void JacobiMethodSolver::write_eigen_to_file(){
   ofstream myfile;
-  myfile.open("eigen.txt");
+  string filename("./Results/eigen" + to_string(m_N) + ".txt");
+  myfile.open(filename);
   myfile << m_N;
   myfile << "\n";
   myfile << "Eigenvalues";
