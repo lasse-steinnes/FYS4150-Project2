@@ -5,6 +5,7 @@
 #include <armadillo>
 
 using namespace arma;
+using namespace std;
 
 
 int main(int argc, char const *argv[]){
@@ -28,24 +29,43 @@ int main(int argc, char const *argv[]){
 
   if (task==1){
     BucklingBeamSolver mysolver;
-    cout << "Number of grid points (N) = ";
-    cin >> N;
-    mysolver.init(N,rho_max);
-    mysolver.solve();
-    //mysolver.write_transformation_func_to_file();
-
+    string check;
+    cout << "Write transformations as function of n to file? (yes/no)";
+    cin >> check;
+    if (check=="yes"){
+      mysolver.write_trans_dims_to_file();
+    }
+    else {
+      cout << "Number of grid points (N) = ";
+      cin >> N;
+      mysolver.init(N,rho_max);
+      mysolver.solve();
+      mysolver.write_eigen_to_file();
+    }
   }
 
   //run task d)
   if (task==2){
     OneElectronSolver mysolver;
+    cout << "Number of grid points (N) = ";
+    cin >> N;
+    mysolver.init(N,rho_max);
+    mysolver.solve();
   }
 
   //run task e)
   if (task==3){
     TwoElectronsSolver mysolver;
-
+    double omega;
+    cout << "Number of grid points (N) = ";
+    cin >> N;
+    cout << "Oscillating frequency (w_r) = ";
+    cin >> omega;
+    mysolver.init(N,rho_max,omega);
+    mysolver.solve();
+    mysolver.write_eigen_to_file();
   }
+
 
   return 0;
 }
