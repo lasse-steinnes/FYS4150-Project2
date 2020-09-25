@@ -1,28 +1,30 @@
 #include "jacobimethodsolver.hpp"
+#include<iostream>
+#include<string>
+using namespace std;
 
 //Setting up the superclass for Jacobi's method with rotational algorithm to be used in all derived classes
 
-void JacobiMethodSolver::initialize(int N){
+void JacobiMethodSolver::initialize(int N, double rho_max){
   //initialize variables to set up Jacobis algorithm
   //to be used in all derived classes
   m_N = N;
-  double h = (double) 1/(m_N + 1);         //steplength
+  rhoN = rho_max;
+  double h = (double) rhoN/(m_N+1);         //steplength m_N
   double hh = h*h;
-
   //creating matrix A
-  A = mat(m_N,m_N);
-  for (int i = 1; i < m_N-1; i++){
-    A(i,i) = 2;
-    A(i,i+1) = -1;
-    A(i,i-1) = -1;
-  }
-  A(0,0) = 2;
-  A(N-1,N-1) = 2;
-  A(N-1,N-2) = -1;
-  A(0,1) = -1;
+  A = zeros<mat>(m_N,m_N);
+  m_rho = vec(N);
+  for (int i = 0; i < m_N; ++i){    //n*n elements,n-1 highest index
+      A(i,i) = 2; //diagonal elements
+      m_rho(i) = (i+1)*h;
 
+    }
+  for (int i = 0; i < m_N-1; ++i){
+      A(i+1,i) = -1; // Fill in for elemnts below diag
+      A(i,i+1) = -1; // Fill in for elements above diag
+    }
   A = (1/hh)*A;
-
 }
 
 //finding maximal absolute offdiagonal element of matrix A, and its specific index (k,l)
@@ -73,4 +75,30 @@ void JacobiMethodSolver::rotating_matrixA(){
       A(l,i) = A(i,l);
     }
   }
+}
+
+void JacobiMethodSolver::solve(){
+  double tol = 1.0E-10;
+  transformations = 0;
+  max_offdiag = 1;
+  while (max_offdiag > tol){
+    max_offdiag_element();
+    rotating_matrixA();
+    transformations++;
+  }
+}
+
+void JacobiMethodSolver::write_eigen_to_file(){
+  ofstream myfile;
+  string filename("./Results/eigen" + to_string(m_N) + ".txt");
+  myfile.open(filename);
+  myfile << m_N;
+  myfile << "\n";
+  myfile << "Eigenvalues";
+  myfile << "\n";
+  for (int i = 0; i < m_N; i++){
+    myfile << A(i,i);
+    myfile << "\n";
+  }
+  myfile.close();
 }

@@ -2,39 +2,41 @@
 #define JacobiMethodSolver_HPP
 #include <fstream>
 #include <armadillo>
+#include <cmath>
 
 using namespace std;
 using namespace arma;
 
 //setting up Jacobi's method as a superclass
 class JacobiMethodSolver {
-private:
-  int k,l;
-
 protected:
-  int m_N;
+  int m_N;             //number of grid points
   vec m_rho, m_l;      //dimensionless length rho and the different computed eigenvalues m_l
-  mat A, V;          //Our tridiagonal matrix A stored in a matrix
+  mat A, m_v;          //Our tridiagonal matrix A and computed eigenvectors m_v, both stored in a matrix
   ofstream m_ofile;
-  double h,rhoN, max_offdiag;
-  int transformations;
 
 public:
-  void initialize(int N, double rho_max);     //public init function to be used in all derived classes and outside the superclass
+  void initialize(int N);     //public init function to be used in all derived classes
   void max_offdiag_element();
-  void rotating_matrixA();
-  void finding_eigenvector();
-  void solve();
-  void write_eigen_to_file();
+  void jacobi_algo();
+  
+public vec arma_eig (mat A) {
+  eig_sym(A);    
+  return eig_val
+}
+
 };
 
 
 //solving task b) with the buckling beam
 class BucklingBeamSolver : public JacobiMethodSolver {
+private:
 
 public:
-  void init(int N, double rho_max);    ////special init function for this specific derived class
-  void write_trans_dims_to_file();
+  void init(int N);    ////special init function for this specific derived class
+  
+
+
 };
 
 
@@ -43,15 +45,19 @@ class OneElectronSolver : public JacobiMethodSolver {
 private:
 
 public:
-  void init(int N, double rho_max);   //special init function for this specific derived class
+  void init(int N);   //special init function for this specific derived class
+
 };
+
 
 //solving task e) with Quantum dots in three dimensions with two electron
 class TwoElectronsSolver : public JacobiMethodSolver {
 private:
-  double omega_r;
+
 public:
-  void init(int N, double rho_max, double omega_r);    //special init function for this specific derived class
+  void init(int N);    //special init function for this specific derived class
+
 };
+
 
 #endif
