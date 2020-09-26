@@ -28,7 +28,6 @@ void JacobiMethodSolver::initialize(int N, double rho_max){
 }
 
 void JacobiMethodSolver::write_eigenvectors_to_file(){
-  cout << "Writing eigenvectors to file: eigenvectors" + to_string(m_N) + ".txt" << "\n";
   vec eigval_start;
   mat eigvec_start;
   eig_sym(eigval_start,eigvec_start,A);
@@ -118,7 +117,6 @@ void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
   cout << "CPU time for finding eigenvalues with armadillo for N = " + to_string(m_N) + " : " << cpu_time_arma << "ms\n";
 
   ofstream myfile;
-  cout << "Writing eigenvalues and rho-values to file: eigenvalues_rho" + to_string(m_N) + ".txt" << "\n";
   string filename("./Results/eigenvalues_rho" + to_string(m_N) + ".txt");
   myfile.open(filename);
   myfile << "Eigenvalues" << " " << "rho";

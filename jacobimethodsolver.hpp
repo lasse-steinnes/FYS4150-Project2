@@ -10,6 +10,7 @@ using namespace arma;
 class JacobiMethodSolver {
 private:
   int k,l;
+  double cpu_time_jacobi;
 
 protected:
   int m_N;
