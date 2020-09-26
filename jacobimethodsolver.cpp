@@ -1,6 +1,7 @@
 #include "jacobimethodsolver.hpp"
 #include<iostream>
 #include<string>
+#include "time.h"
 using namespace std;
 
 //Setting up the superclass for Jacobi's method with rotational algorithm to be used in all derived classes
@@ -96,17 +97,28 @@ void JacobiMethodSolver::solve(){
   double tol = 1.0E-10;
   transformations = 0;
   max_offdiag = 1;
+  clock_t start, finish;
+  start = clock();
   while (max_offdiag > tol){
     max_offdiag_element();
     rotating_matrixA();
     transformations++;
   }
+  finish = clock();
+  cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU cpu_time_jacobi
 }
 
 void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
-  cout << "Writing eigenvalues and rho-values to file: eigenvalues_rho" + to_string(m_N) + ".txt" << "\n";
+  clock_t start, finish;
+  start = clock();
   vec eigval_final = eig_sym(A);
+  finish = clock();
+  double cpu_time_arma = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU time
+  cout << "CPU time for Jacobi method with N = " + to_string(m_N) + " : " << cpu_time_jacobi << "ms\n";
+  cout << "CPU time for finding eigenvalues with armadillo for N = " + to_string(m_N) + " : " << cpu_time_arma << "ms\n";
+
   ofstream myfile;
+  cout << "Writing eigenvalues and rho-values to file: eigenvalues_rho" + to_string(m_N) + ".txt" << "\n";
   string filename("./Results/eigenvalues_rho" + to_string(m_N) + ".txt");
   myfile.open(filename);
   myfile << "Eigenvalues" << " " << "rho";
