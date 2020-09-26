@@ -42,7 +42,6 @@ int main(int argc, char const *argv[]){
     cout << "Type: make plot1, to get a plot of the eigenvector for the lowest eigenvalue" << "\n";
   }
 
-
   //run task d)
   if (task==2){
     OneElectronSolver mysolver;
