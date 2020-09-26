@@ -7,5 +7,8 @@ compile:
 execute:
 	./main.out
 
-plot:
-	python3 plot.py
+plot1:
+	python3 plot_eigenvector.py
+
+plot2:
+	python3 plot_transformations.py

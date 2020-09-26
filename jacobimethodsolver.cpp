@@ -10,22 +10,37 @@ void JacobiMethodSolver::initialize(int N, double rho_max){
   //to be used in all derived classes
   m_N = N;
   rhoN = rho_max;
-  double h = (double) rhoN/(m_N+1);         //steplength m_N
+  h = (double) rhoN/(m_N+1);         //steplength m_N
   double hh = h*h;
   //creating matrix A
   A = zeros<mat>(m_N,m_N);
-  m_rho = vec(N);
+  m_rho = vec(m_N);
   for (int i = 0; i < m_N; ++i){    //n*n elements,n-1 highest index
       A(i,i) = 2; //diagonal elements
       m_rho(i) = (i+1)*h;
-
-    }
+  }
   for (int i = 0; i < m_N-1; ++i){
       A(i+1,i) = -1; // Fill in for elemnts below diag
       A(i,i+1) = -1; // Fill in for elements above diag
-    }
+  }
   A = (1/hh)*A;
 }
+
+void JacobiMethodSolver::write_eigenvectors_to_file(){
+  cout << "Writing eigenvectors to file: eigenvectors" + to_string(m_N) + ".txt" << "\n";
+  vec eigval_start;
+  mat eigvec_start;
+  eig_sym(eigval_start,eigvec_start,A);
+  ofstream myfile;
+  string filename("./Results/eigenvectors" + to_string(m_N) + ".txt");
+  myfile.open(filename);
+  myfile << "Eigevectors";
+  myfile << "\n";
+  myfile << eigvec_start;
+  myfile << "\n";
+  myfile.close();
+}
+
 
 //finding maximal absolute offdiagonal element of matrix A, and its specific index (k,l)
 void JacobiMethodSolver::max_offdiag_element(){
@@ -88,16 +103,16 @@ void JacobiMethodSolver::solve(){
   }
 }
 
-void JacobiMethodSolver::write_eigen_to_file(){
+void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
+  cout << "Writing eigenvalues and rho-values to file: eigenvalues_rho" + to_string(m_N) + ".txt" << "\n";
+  vec eigval_final = eig_sym(A);
   ofstream myfile;
-  string filename("./Results/eigen" + to_string(m_N) + ".txt");
+  string filename("./Results/eigenvalues_rho" + to_string(m_N) + ".txt");
   myfile.open(filename);
-  myfile << m_N;
-  myfile << "\n";
-  myfile << "Eigenvalues";
+  myfile << "Eigenvalues" << " " << "rho";
   myfile << "\n";
   for (int i = 0; i < m_N; i++){
-    myfile << A(i,i);
+    myfile << eigval_final(i) << " " << m_rho(i);
     myfile << "\n";
   }
   myfile.close();

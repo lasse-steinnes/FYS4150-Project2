@@ -25,16 +25,19 @@ public:
   void rotating_matrixA();
   void finding_eigenvector();
   void solve();
-  void write_eigen_to_file();
+  void write_eigenvalues_and_rho_to_file();
+  void write_eigenvectors_to_file();
 };
 
 
 //solving task b) with the buckling beam
 class BucklingBeamSolver : public JacobiMethodSolver {
+private:
 
 public:
   void init(int N, double rho_max);    ////special init function for this specific derived class
   void write_trans_dims_to_file();
+  void analytic_eigenpairs();
 };
 
 
