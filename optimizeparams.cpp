@@ -20,7 +20,7 @@ void OptimizeParams::initialize(){
 
 void OptimizeParams::optimize_rho(){
   OneElectronSolver mysolver; //initialize mysolver
-  int Nn = m_N(3);
+  int Nn = m_N(2);
   vec num_lam = zeros(Nn);
 
   //create analytical lambdas to compare with
