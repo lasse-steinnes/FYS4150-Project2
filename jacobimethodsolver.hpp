@@ -2,15 +2,19 @@
 #define JacobiMethodSolver_HPP
 #include <fstream>
 #include <armadillo>
+#include <chrono>
 
 using namespace std;
 using namespace arma;
+using namespace chrono;
 
 //setting up Jacobi's method as a superclass
 class JacobiMethodSolver {
 private:
   int k,l;
   double cpu_time_jacobi;
+  vector<double> time_max;
+  vector<double> time_rotate;
 
 protected:
   int m_N;
@@ -22,8 +26,8 @@ protected:
 
 public:
   void initialize(int N, double rho_max);     //public init function to be used in all derived classes and outside the superclass
-  void max_offdiag_element();
-  void rotating_matrixA();
+  duration<double, milli> max_offdiag_element();
+  duration<double, milli> rotating_matrixA();
   void finding_eigenvector();
   void solve();
   void write_eigenvalues_and_rho_to_file();
