@@ -49,32 +49,17 @@ int main(int argc, char const *argv[]){
     cout << "Optimize parameters (yes/no)";
     cin >> answ;
     if (answ == "yes"){ // Write code to optimize the parameters here
-      vec rho_m, N;
-      rho_m = zeros(6); N = zeros(5);
-      rho_m(0) = 10; N(0) = 10;
+      //initialize optimizer here
 
-      for (int i = 1; i < 6; i++){
-        rho_m(i) = rho_m(i-1)*10;
-      }
-      for (int j = 1; j < 5; j++){
-        N(j) = N(j-1)*10;
-      }
+
       //run optimizer
       string opt;
       cout << "optimize param (rho/n)";
       cin >> opt;
       if (opt == "rho"){
-        int Nn = N(3);
-        for (int i = 0; i < 6; i++){
-          mysolver.init(Nn,rho_m(i));
-          mysolver.solve();
-        }
+        //optimize rho
       } else{
-        double rho_ = rho_m(3);
-        for (int j = 0; j < 5; j++){
-          mysolver.init(N(j),rho_);
-          mysolver.solve();
-        }
+        //optimize n
       }
     } else {
     cout << "Number of grid points (N) = ";
