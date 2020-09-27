@@ -1,4 +1,5 @@
 #include "jacobimethodsolver.hpp"
+#include "optimizeparams.hpp"
 #include <cmath>
 #include <string>
 #include <time.h>
@@ -45,12 +46,12 @@ int main(int argc, char const *argv[]){
   //run task d)
   if (task==2){
     string answ;
-    OneElectronSolver mysolver;
     cout << "Optimize parameters (yes/no)";
     cin >> answ;
-    if (answ == "yes"){ // Write code to optimize the parameters here
+    if (answ == "yes"){
       //initialize optimizer here
-
+      OptimizeParams myopt;
+      myopt.initialize();
 
       //run optimizer
       string opt;
@@ -58,10 +59,13 @@ int main(int argc, char const *argv[]){
       cin >> opt;
       if (opt == "rho"){
         //optimize rho
+        myopt.optimize_rho();
       } else{
         //optimize n
+        myopt.optimize_n();
       }
     } else {
+    OneElectronSolver mysolver;
     cout << "Number of grid points (N) = ";
     cin >> N;
     mysolver.init(N,rho_max);

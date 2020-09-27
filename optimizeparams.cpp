@@ -1,4 +1,5 @@
 #include "optimizeparams.hpp"
+#include "jacobimethodsolver.hpp"
 #include<iostream>
 #include<armadillo>
 
@@ -18,17 +19,21 @@ void OptimizeParams::initialize(){
 }
 
 void OptimizeParams::optimize_rho(){
-  int Nn = N(3);
+  OneElectronSolver mysolver; //initialize mysolver
+  int Nn = m_N(3);
   for (int i = 0; i < 6; i++){
-    mysolver.init(Nn,rho_m(i));
+    mysolver.init(Nn,m_rho(i));
     mysolver.solve();
   }
 }
 
 void OptimizeParams::optimize_n(){
-  double rho_ = rho_m(3);
+  OneElectronSolver mysolver; //initialize mysolver
+  double rho_ = m_rho(3);
   for (int j = 0; j < 5; j++){
-    mysolver.init(N(j),rho_);
+    mysolver.init(m_N(j),rho_);
     mysolver.solve();
   }
 }
+//Now want to get the best parameters by comparing to analytical
+// lambdas which can be generated in initilize

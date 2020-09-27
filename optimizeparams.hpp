@@ -1,16 +1,17 @@
 #ifndef OptimizeParams_HPP
 #define OptimizeParams_HPP
-#include <fstream>
 #include <armadillo>
+
+using namespace arma;
 
 class OptimizeParams{
   protected:
-    vec m_rho, m_N
+    vec m_rho, m_N;
 
   public: //only use void functions and rather just cout
-    void initialize()
-    void optimize_rho(int rho, vec )
-    void optimize_n()
+    void initialize();
+    void optimize_rho();
+    void optimize_n();
   };
 
 #endif
