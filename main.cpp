@@ -48,7 +48,9 @@ int main(int argc, char const *argv[]){
     cout << "Number of grid points (N) = ";
     cin >> N;
     mysolver.init(N,rho_max);
+    mysolver.write_eigenvectors_to_file();
     mysolver.solve();
+    mysolver.write_eigenvalues_and_rho_to_file();
   }
 
   //run task e)
@@ -60,9 +62,9 @@ int main(int argc, char const *argv[]){
     cout << "Oscillating frequency (w_r) = ";
     cin >> omega;
     mysolver.init(N,rho_max,omega);
+    mysolver.write_eigenvectors_to_file();
     mysolver.solve();
     mysolver.write_eigenvalues_and_rho_to_file();
-    mysolver.write_eigenvectors_to_file();
   }
 
 

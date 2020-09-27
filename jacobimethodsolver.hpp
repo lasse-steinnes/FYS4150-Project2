@@ -17,11 +17,12 @@ private:
   vector<double> time_rotate;
 
 protected:
+  string task;
   int m_N;
   vec m_rho, m_l;      //dimensionless length rho and the different computed eigenvalues m_l
   mat A, V;          //Our tridiagonal matrix A stored in a matrix
   ofstream m_ofile;
-  double h,rhoN, max_offdiag;
+  double h,rhoN, max_offdiag, omega_r;
   int transformations;
 
 public:
@@ -57,7 +58,7 @@ public:
 //solving task e) with Quantum dots in three dimensions with two electron
 class TwoElectronsSolver : public JacobiMethodSolver {
 private:
-  double omega_r;
+
 public:
   void init(int N, double rho_max, double omega_r);    //special init function for this specific derived class
 };
