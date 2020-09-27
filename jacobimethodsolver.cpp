@@ -104,11 +104,7 @@ void JacobiMethodSolver::solve(){
     transformations++;
   }
   finish = clock();
-<<<<<<< HEAD
-  cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU time
-=======
   cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU cpu_time_jacobi
->>>>>>> d1300c5adc2d4efd56565dd98f2de85a6a3bf226
 }
 
 void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
