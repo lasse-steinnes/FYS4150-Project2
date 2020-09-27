@@ -1,0 +1,6 @@
+rho_max 1
+omega_r 0
+Eigevectors
+  -0.7071  -0.7071
+  -0.7071   0.7071
+

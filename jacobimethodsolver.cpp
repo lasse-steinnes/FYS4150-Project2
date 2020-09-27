@@ -164,4 +164,13 @@ void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
     myfile << "\n";
   }
   myfile.close();
+  get_eigenvalues(A, m_N);
+}
+
+vector<double> JacobiMethodSolver::get_eigenvalues(mat A, int m_N) {
+  vector<double> eigenvalues;
+  for(int i = 0; i < m_N; i++) {
+    eigenvalues.insert(eigenvalues.begin() + i, A(i, i));
+  }
+  return eigenvalues;
 }

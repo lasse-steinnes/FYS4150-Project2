@@ -1,0 +1,5 @@
+rho_max 1
+omega_r 0
+Eigenvalues rho
+13.5 0.333333
+27 0.666667
