@@ -37,7 +37,7 @@ void OptimizeParams::optimize_rho(){
     vec num_lam = mysolver.solve();
     num_lam = sort(num_lam);
     //cout << "numerical lambda: " << " " << num_lam << endl;
-    cout << "max absolute error" << " " << max(num_lam - m_lambdas) << " "  << "rho"<< m_rho(i) << endl;
+    cout << "max absolute error:" << " " << max(num_lam - m_lambdas) << " "  << "rho:"<< m_rho(i) << endl;
     }
   }
 
