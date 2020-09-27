@@ -127,8 +127,6 @@ void JacobiMethodSolver::solve(){
     time_rotate.insert(time_rotate.begin() + transformations, rotating_matrixA().count()); // Inserting time used for calulations each time the method is called into vector.
     transformations++;
   }
-
-  cpu_time_jacobi = Mean(time_max) + Mean(time_rotate);
 }
 
 void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
