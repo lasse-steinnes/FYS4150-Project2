@@ -1,8 +1,9 @@
 #include "jacobimethodsolver.hpp"
 #include<iostream>
 #include<string>
-#include "time.h"
+#include<chrono>
 using namespace std;
+using namespace chrono;
 
 //Setting up the superclass for Jacobi's method with rotational algorithm to be used in all derived classes
 
@@ -42,9 +43,12 @@ void JacobiMethodSolver::write_eigenvectors_to_file(){
 }
 
 
-//finding maximal absolute offdiagonal element of matrix A, and its specific index (k,l)
-void JacobiMethodSolver::max_offdiag_element(){
+//finding maximal absolute offdiagonal element of matrix A, and its specific
+//index (k,l), returns the time it took to find the element
+duration<double, milli> JacobiMethodSolver::max_offdiag_element(){
   double max_val = 0.0;
+  duration<double, milli> max_diag;
+  auto start = chrono::high_resolution_clock::now(); // Start timer
   for (int i = 0; i < m_N; i++){
     for (int j = i+1; j < m_N; j++){
       double offdiag_ij = fabs(A(i,j));
@@ -56,10 +60,14 @@ void JacobiMethodSolver::max_offdiag_element(){
     }
   }
   max_offdiag = max_val;
+  auto finish = chrono::high_resolution_clock::now(); // End timer
+  max_diag = finish - start;
+  return max_diag;
 }
 
 //updating the elements of matrix A by rotating around the elements given index (k,l)
-void JacobiMethodSolver::rotating_matrixA(){
+// returns the time it took to rotate the matrix
+duration<double, milli> JacobiMethodSolver::rotating_matrixA(){
   double tau, t, c, s;
   if (A(k,l) != (double) 0){
     tau = (A(l,l) - A(k,k))/(2*A(k,l));
@@ -80,6 +88,9 @@ void JacobiMethodSolver::rotating_matrixA(){
   A(k,k) = A(k,k)*c*c - 2*A(k,l)*c*s + A(l,l)*s*s;
   A(l,l) = A(l,l)*c*c + 2*A(k,l)*c*s + A(k,k)*s*s;
   A(k,l) = A(l,k) = (double) 0;
+
+  duration<double, milli> rotate;
+  auto start = chrono::high_resolution_clock::now(); // Start timer
   for (int i = 0; i < m_N; i ++){
     if (i != k && i != l){
       double aik = A(i,k);
@@ -90,35 +101,51 @@ void JacobiMethodSolver::rotating_matrixA(){
       A(l,i) = A(i,l);
     }
   }
+  auto finish = chrono::high_resolution_clock::now(); // End timer
+  rotate = finish - start;
+  return rotate;
+}
+
+double Mean(vector<double> v) { // Method for finding mean of a vector
+  double mean = accumulate(v.begin(), v.end(), 0./v.size());
+  return mean;
+}
+
+double Std(vector<double> v) { //Method for finding the standard deviance
+  double sq_sum = inner_product(v.begin(), v.end(), v.begin(), 0.0);
+  double st_dev = sqrt(sq_sum/(v.size() - Mean(v) * Mean(v)));
+
+  return st_dev;
 }
 
 void JacobiMethodSolver::solve(){
   double tol = 1.0E-10;
   transformations = 0;
   max_offdiag = 1;
-  clock_t start, finish;
-  start = clock();
   while (max_offdiag > tol){
-    max_offdiag_element();
-    rotating_matrixA();
+    time_max.insert(time_max.begin() + transformations, max_offdiag_element().count()); // Inserting time used for calulations each time the method is called into vector.
+    time_rotate.insert(time_rotate.begin() + transformations, rotating_matrixA().count()); // Inserting time used for calulations each time the method is called into vector.
     transformations++;
   }
-  finish = clock();
-<<<<<<< HEAD
-  cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU time
-=======
-  cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU cpu_time_jacobi
->>>>>>> d1300c5adc2d4efd56565dd98f2de85a6a3bf226
+
+  cpu_time_jacobi = Mean(time_max) + Mean(time_rotate);
 }
 
 void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
-  clock_t start, finish;
-  start = clock();
+  auto start = chrono::high_resolution_clock::now();
   vec eigval_final = eig_sym(A);
-  finish = clock();
-  double cpu_time_arma = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU time
-  cout << "CPU time for Jacobi method with N = " + to_string(m_N) + " : " << cpu_time_jacobi << "ms\n";
-  cout << "CPU time for finding eigenvalues with armadillo for N = " + to_string(m_N) + " : " << cpu_time_arma << "ms\n";
+  auto finish = chrono::high_resolution_clock::now();
+  double cpu_time_arma = duration_cast<milliseconds>(finish-start).count();
+
+  ofstream file;
+  cout << "Writing CPU times to file: CPU_time" + to_string(m_N) + ".txt" << "\n";
+  file.open("./Results/CPU_time" + to_string(m_N) + ".txt");
+  file << "Average CPU time + std to find the maximum offdiagonal element: " << Mean(time_max) << "ms, " << Std(time_max) << "ms" << "\n";
+  file << "Average CPU time + std to rotate the matrix: " << Mean(time_rotate) << "ms, " << Std(time_rotate) << "ms" << "\n";
+  file << "CPU time for Jacobi method: " << cpu_time_jacobi << "ms" << "\n";
+  file << "CPU time for finding eigenvalues with armadillo: " << cpu_time_arma << "ms" <<"\n";
+  file.close();
+
 
   ofstream myfile;
   cout << "Writing eigenvalues and rho-values to file: eigenvalues_rho" + to_string(m_N) + ".txt" << "\n";
