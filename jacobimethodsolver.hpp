@@ -31,7 +31,7 @@ public:
   duration<double, milli> rotating_matrixA();
   vector<double> get_eigenvalues(mat A, int m_N);
   void finding_eigenvector();
-  void solve();
+  vector<double> solve();
   void write_eigenvalues_and_rho_to_file();
   void write_eigenvectors_to_file();
 };

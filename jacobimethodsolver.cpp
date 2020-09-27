@@ -120,7 +120,7 @@ double Std(vector<double> v) { //Method for finding the standard deviance
   return st_dev;
 }
 
-void JacobiMethodSolver::solve(){
+vector<double> JacobiMethodSolver::solve(){
   double tol = 1.0E-10;
   transformations = 0;
   max_offdiag = 1;
@@ -133,6 +133,7 @@ void JacobiMethodSolver::solve(){
   }
   finish = clock();
   cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU cpu_time_jacobi
+  return get_eigenvalues(A, m_N);
 }
 
 void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
