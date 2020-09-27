@@ -139,7 +139,7 @@ void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
 
   ofstream file;
   cout << "Writing CPU times to file: CPU_time" + to_string(m_N) + ".txt" << "\n";
-  file.open("./Results/CPU_time" + to_string(m_N) + ".txt");
+  file.open("./Results/CPU_time" + to_string(m_N) + ".txt");s
   file << "Average CPU time + std to find the maximum offdiagonal element: " << Mean(time_max) << "ms, " << Std(time_max) << "ms" << "\n";
   file << "Average CPU time + std to rotate the matrix: " << Mean(time_rotate) << "ms, " << Std(time_rotate) << "ms" << "\n";
   file << "CPU time for Jacobi method: " << cpu_time_jacobi << "ms" << "\n";
