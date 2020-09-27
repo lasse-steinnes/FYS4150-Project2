@@ -43,7 +43,7 @@ void OptimizeParams::optimize_rho(){
 
 void OptimizeParams::optimize_n(){
   OneElectronSolver mysolver; //initialize mysolver
-  double rho_ = 10.8171
+  double rho_ = 10.8171;
   for (int j = 0; j < 5; j++){
     //create analytical lambdas to compare with (each different size to fit)
     m_lambdas = zeros<vec>(m_N(j));
