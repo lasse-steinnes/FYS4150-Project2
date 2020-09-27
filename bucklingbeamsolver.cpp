@@ -4,6 +4,8 @@
 //task b)
 void BucklingBeamSolver::init(int N, double rho_max){
   initialize(N,rho_max);  //Initialize funksjon fra superklassen
+  task = "b";
+  omega_r = 0;
 }
 
 void BucklingBeamSolver::write_trans_dims_to_file(){

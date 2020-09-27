@@ -33,8 +33,10 @@ void JacobiMethodSolver::write_eigenvectors_to_file(){
   mat eigvec_start;
   eig_sym(eigval_start,eigvec_start,A);
   ofstream myfile;
-  string filename("./Results/eigenvectors" + to_string(m_N) + ".txt");
+  string filename("./Results/eigenvectors" + to_string(m_N) + task + ".txt");
   myfile.open(filename);
+  myfile << "rho_max " << rhoN << "\n";
+  myfile << "omega_r " << omega_r << "\n";
   myfile << "Eigevectors";
   myfile << "\n";
   myfile << eigvec_start;
@@ -122,6 +124,8 @@ void JacobiMethodSolver::solve(){
   double tol = 1.0E-10;
   transformations = 0;
   max_offdiag = 1;
+  clock_t start, finish;
+  start = clock();
   while (max_offdiag > tol){
     time_max.insert(time_max.begin() + transformations, max_offdiag_element().count()); // Inserting time used for calulations each time the method is called into vector.
     time_rotate.insert(time_rotate.begin() + transformations, rotating_matrixA().count()); // Inserting time used for calulations each time the method is called into vector.
@@ -139,7 +143,7 @@ void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
 
   ofstream file;
   cout << "Writing CPU times to file: CPU_time" + to_string(m_N) + ".txt" << "\n";
-  file.open("./Results/CPU_time" + to_string(m_N) + ".txt");s
+  file.open("./Results/CPU_time" + to_string(m_N) + ".txt");
   file << "Average CPU time + std to find the maximum offdiagonal element: " << Mean(time_max) << "ms, " << Std(time_max) << "ms" << "\n";
   file << "Average CPU time + std to rotate the matrix: " << Mean(time_rotate) << "ms, " << Std(time_rotate) << "ms" << "\n";
   file << "CPU time for Jacobi method: " << cpu_time_jacobi << "ms" << "\n";
@@ -148,9 +152,11 @@ void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
 
 
   ofstream myfile;
-  cout << "Writing eigenvalues and rho-values to file: eigenvalues_rho" + to_string(m_N) + ".txt" << "\n";
-  string filename("./Results/eigenvalues_rho" + to_string(m_N) + ".txt");
+  cout << "Writing eigenvalues and rho-values to file: eigenvalues_rho" + to_string(m_N) + task + ".txt" << "\n";
+  string filename("./Results/eigenvalues_rho" + to_string(m_N) + task + ".txt");
   myfile.open(filename);
+  myfile << "rho_max " << rhoN << "\n";
+  myfile << "omega_r " << omega_r << "\n";
   myfile << "Eigenvalues" << " " << "rho";
   myfile << "\n";
   for (int i = 0; i < m_N; i++){
