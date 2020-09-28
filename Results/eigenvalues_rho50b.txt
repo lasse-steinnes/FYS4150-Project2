@@ -1,3 +1,5 @@
+rho_max 1
+omega_r 0
 Eigenvalues rho
 2069.67 0.0196078
 2112.95 0.0392157

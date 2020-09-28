@@ -1,4 +1,5 @@
 #include "jacobimethodsolver.hpp"
+#include "optimizeparams.hpp"
 #include <cmath>
 #include <string>
 #include <time.h>
@@ -44,12 +45,35 @@ int main(int argc, char const *argv[]){
 
   //run task d)
   if (task==2){
+    string answ;
+    cout << "Optimize parameters (yes/no)";
+    cin >> answ;
+    if (answ == "yes"){
+      //initialize optimizer here
+      OptimizeParams myopt;
+      myopt.initialize();
+
+      //run optimizer
+      string opt;
+      cout << "optimize param (rho/n)";
+      cin >> opt;
+      if (opt == "rho"){
+        //optimize rho
+        myopt.optimize_rho();
+      } else{
+        //optimize n
+        myopt.optimize_n();
+      }
+    } else {
     OneElectronSolver mysolver;
     cout << "Number of grid points (N) = ";
     cin >> N;
     mysolver.init(N,rho_max);
+    mysolver.write_eigenvectors_to_file();
     mysolver.solve();
+    mysolver.write_eigenvalues_and_rho_to_file();
   }
+}
 
   //run task e)
   if (task==3){
@@ -60,9 +84,9 @@ int main(int argc, char const *argv[]){
     cout << "Oscillating frequency (w_r) = ";
     cin >> omega;
     mysolver.init(N,rho_max,omega);
+    mysolver.write_eigenvectors_to_file();
     mysolver.solve();
     mysolver.write_eigenvalues_and_rho_to_file();
-    mysolver.write_eigenvectors_to_file();
   }
 
 
