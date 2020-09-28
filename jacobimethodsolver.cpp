@@ -134,15 +134,14 @@ vector<double> JacobiMethodSolver::solve(){
   double tol = 1.0E-10;
   transformations = 0;
   max_offdiag = 1;
-  clock_t start, finish;
-  start = clock();
+  auto start = chrono::high_resolution_clock::now();
   while (max_offdiag > tol){
     time_max.insert(time_max.begin() + transformations, max_offdiag_element().count()); // Inserting time used for calulations each time the method is called into vector.
     time_rotate.insert(time_rotate.begin() + transformations, rotating_matrixA().count()); // Inserting time used for calulations each time the method is called into vector.
     transformations++;
   }
-  finish = clock();
-  cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU cpu_time_jacobi
+  auto finish = chrono::high_resolution_clock::now();
+  cpu_time_jacobi = duration_cast<milliseconds>(finish-start).count();  //computing CPU cpu_time_jacobi
   write_relative_error_to_file();
 
   return get_eigenvalues(A, m_N);
