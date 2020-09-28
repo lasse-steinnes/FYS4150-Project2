@@ -125,7 +125,7 @@ vector<double> JacobiMethodSolver::analytic_eigenvalues() {
   double d = 2./(h*h);
   double a = -1./(h*h);
   for(int i = 0; i < m_N; i++) {
-    an_val.insert(an_val.begin() + i, d + (2*a*cos((M_PI*i)/m_N)));
+    an_val.insert(an_val.begin() + i, d + (2*a*cos((M_PI*(i+1))/m_N)));
   }
   return an_val;
 }

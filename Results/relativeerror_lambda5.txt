@@ -1,5 +1,5 @@
-n = 0 Analytic eigenvalue: 29.0466, Numerical eigenvalue: 0, Relative error: inf
-n = 1 Analytic eigenvalue: 45.7381, Numerical eigenvalue: 13.7508, Relative error: 2.32622
-n = 2 Analytic eigenvalue: 73.5928, Numerical eigenvalue: 49.7508, Relative error: 0.47923
-n = 3 Analytic eigenvalue: 109.069, Numerical eigenvalue: 94.2492, Relative error: 0.157241
-n = 4 Analytic eigenvalue: 131.962, Numerical eigenvalue: 130.249, Relative error: 0.0131532
+n = 0 Analytic eigenvalue: 29.0466, Numerical eigenvalue: 13.7508, Relative error: 1.11236
+n = 1 Analytic eigenvalue: 45.7381, Numerical eigenvalue: 49.7508, Relative error: 0.0806555
+n = 2 Analytic eigenvalue: 73.5928, Numerical eigenvalue: 94.2492, Relative error: 0.219168
+n = 3 Analytic eigenvalue: 109.069, Numerical eigenvalue: 130.249, Relative error: 0.162612
+n = 4 Analytic eigenvalue: 131.962, Numerical eigenvalue: 144, Relative error: 0.0835943
