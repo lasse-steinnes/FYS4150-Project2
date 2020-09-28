@@ -1,0 +1,10 @@
+n = 0 Analytic eigenvalue: 104.898, Numerical eigenvalue: 0, Relative error: inf
+n = 1 Analytic eigenvalue: 118.357, Numerical eigenvalue: 11.8443, Relative error: 8.9927
+n = 2 Analytic eigenvalue: 151.317, Numerical eigenvalue: 46.2179, Relative error: 2.27399
+n = 3 Analytic eigenvalue: 188.245, Numerical eigenvalue: 99.756, Relative error: 0.887059
+n = 4 Analytic eigenvalue: 246.071, Numerical eigenvalue: 167.218, Relative error: 0.471558
+n = 5 Analytic eigenvalue: 298.429, Numerical eigenvalue: 242, Relative error: 0.233178
+n = 6 Analytic eigenvalue: 356.255, Numerical eigenvalue: 316.782, Relative error: 0.124605
+n = 7 Analytic eigenvalue: 393.183, Numerical eigenvalue: 384.244, Relative error: 0.023264
+n = 8 Analytic eigenvalue: 426.143, Numerical eigenvalue: 437.782, Relative error: 0.0265861
+n = 9 Analytic eigenvalue: 439.602, Numerical eigenvalue: 472.156, Relative error: 0.0689473

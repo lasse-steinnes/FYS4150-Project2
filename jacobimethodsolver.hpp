@@ -24,6 +24,7 @@ protected:
   ofstream m_ofile;
   double h,rhoN, max_offdiag, omega_r;
   int transformations;
+  vector<double> an_val;
 
 public:
   void initialize(int N, double rho_max);     //public init function to be used in all derived classes and outside the superclass
@@ -32,6 +33,8 @@ public:
   vector<double> get_eigenvalues(mat A, int m_N);
   void finding_eigenvector();
   vector<double> solve();
+  vector<double> analytic_eigenvalues();
+  void write_relative_error_to_file();
   void write_eigenvalues_and_rho_to_file();
   void write_eigenvectors_to_file();
 };

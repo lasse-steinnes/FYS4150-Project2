@@ -120,6 +120,16 @@ double Std(vector<double> v) { //Method for finding the standard deviance
   return st_dev;
 }
 
+vector<double> JacobiMethodSolver::analytic_eigenvalues() {
+  vector<double> an_val;
+  double d = 2./(h*h);
+  double a = -1./(h*h);
+  for(int i = 0; i < m_N; i++) {
+    an_val.insert(an_val.begin() + i, d + (2*a*cos((M_PI*i)/m_N)));
+  }
+  return an_val;
+}
+
 vector<double> JacobiMethodSolver::solve(){
   double tol = 1.0E-10;
   transformations = 0;
@@ -133,7 +143,23 @@ vector<double> JacobiMethodSolver::solve(){
   }
   finish = clock();
   cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU cpu_time_jacobi
+  write_relative_error_to_file();
+
   return get_eigenvalues(A, m_N);
+}
+
+void JacobiMethodSolver::write_relative_error_to_file() {
+  vector<double> an_val = analytic_eigenvalues();
+  vector<double> n_val = get_eigenvalues(A, m_N);
+  vector<double> relative_error;
+  cout << "Writing relative error to file: relativeerror_lambda" + to_string(m_N) + task + ".txt" << "\n";
+  ofstream file;
+  file.open("./Results/relativeerror_lambda" + to_string(m_N) + ".txt");
+
+  for (int i=0;i<m_N; i++){
+    relative_error.insert(relative_error.begin() + i, abs((an_val[i] - n_val[i]))/an_val[i]);
+    file << "n = " << i << " Analytic eigenvalue: " << n_val[i] << ", Numerical eigenvalue: " << an_val[i] << ", Relative error: " << relative_error[i] << "\n";
+  }
 }
 
 void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
@@ -173,5 +199,6 @@ vector<double> JacobiMethodSolver::get_eigenvalues(mat A, int m_N) {
   for(int i = 0; i < m_N; i++) {
     eigenvalues.insert(eigenvalues.begin() + i, A(i, i));
   }
+  sort(eigenvalues.begin(), eigenvalues.end());
   return eigenvalues;
 }
