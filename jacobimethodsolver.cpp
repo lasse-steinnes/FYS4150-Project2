@@ -32,6 +32,7 @@ void JacobiMethodSolver::write_eigenvectors_to_file(){
   vec eigval_start;
   mat eigvec_start;
   eig_sym(eigval_start,eigvec_start,A);
+
   ofstream myfile;
   string filename("./Results/eigenvectors" + to_string(m_N) + task + ".txt");
   myfile.open(filename);
