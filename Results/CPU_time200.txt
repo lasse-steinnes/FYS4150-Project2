@@ -1,4 +1,4 @@
-Average CPU time + std to find the maximum offdiagonal element: 10470.9ms, nanms
-Average CPU time + std to rotate the matrix: 714.438ms, nanms
-CPU time for Jacobi method: 11193.3ms
-CPU time for finding eigenvalues with armadillo: 7ms
+Average CPU time + std to find the maximum offdiagonal element: 10518.8ms, nanms
+Average CPU time + std to rotate the matrix: 715.722ms, nanms
+CPU time for Jacobi method: 11265.6ms
+CPU time for finding eigenvalues with armadillo: 8ms

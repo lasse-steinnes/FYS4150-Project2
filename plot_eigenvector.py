@@ -37,10 +37,16 @@ for line in infile2:
     m = m + 1
 
 
+ground_state = np.zeros(N)
+for j in range(N):
+    ground_state[j] = np.sin(((j+1)*np.pi)/N)
+
+
 
 ##plotting tridiagonal solutions along with analytic solutions
 if task == "b":
-    plt.plot(rho,-V[:,0], label = 'Eigenvector')
+    plt.plot(rho,-V[:,1], label = 'Numerical eigenvector')
+    plt.plot(rho,-ground_state, label = 'Analytical eigenvector')
     plt.title("Eigenvector for lowest eigenvalue for N = %d" %(N))
     plt.xlabel('rho')
     plt.ylabel('Eigenvector')
