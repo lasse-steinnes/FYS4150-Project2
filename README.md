@@ -2,7 +2,7 @@
 Git for Project 2 in Computational Physics (FYS4150).
 
 ### Main overview
-* The programs in this repository aim at solving the questions about eigenvalue problems (EVPs) posed in the project 2 description: [Project 2 - Eigenvalue Problems ](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/Report/Project2-description.pdf).
+* The programs in this repository aim at solving the questions about eigenvalue problems (EVPs) posed in the project 2 description: [Project 2 - Eigenvalue Problems ](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/Report/Project2-description.pdf). The final report can be found at: 
 
 * The main challenge was to create an eigenvalue solver using the Jacobi Algorithm, then apply it to differential equations known from Physics.
 1. The Buckling Beam problem
@@ -13,6 +13,7 @@ Git for Project 2 in Computational Physics (FYS4150).
 
 * Another central task was to check crucial functions of the algorithm, using unit tests. In addition, benchmarking results with time usage and relative error is performed.
 
+* Textfiles and figures can be found in the folder Results.
 
 ### Code: Link and description of programmes
 - [main.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/main.cpp) : Runs the other programmes and provide user options through terminal.
