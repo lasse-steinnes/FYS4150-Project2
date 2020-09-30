@@ -35,8 +35,7 @@ Git for Project 2 in Computational Physics (FYS4150).
 
 - [twoelectronsolver.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/twoelectronssolver.cpp) : Sets up the matrix A with a potential term relating to the Coulomb repulsion.
 
--
-[test.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/test.cpp): Unit tests for eigenvalues and checking if max off-diagonal works as intended. Has headerfile [catch.hpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/catch.hpp)
+- [test.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/test.cpp): Unit tests for eigenvalues and checking if max off-diagonal works as intended. Has headerfile [catch.hpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/catch.hpp)
 
 - [optimizeparams.hpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/optimizeparams.hpp) : Headerfile relating to the class OptimizeParams with methods optimize_rho and optimize_n.
 
