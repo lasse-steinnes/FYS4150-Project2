@@ -15,11 +15,9 @@ Git for Project 2 in Computational Physics (FYS4150).
 
 
 ### Code: Link and description of programmes
--
-[main.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/main.cpp) : Runs the other programmes and provide user options through terminal.
+- [main.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/main.cpp) : Runs the other programmes and provide user options through terminal.
 
- -
-[makefile](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/makefile) : Compiles and executes cpp files, and provides plot options of eigenvalues and transformations of the initial matrix.  
+ - [makefile](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/makefile) : Compiles and executes cpp files, and provides plot options of eigenvalues and transformations of the initial matrix.  
 
 -  [jacobimethodsolver.hpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/jacobimethodsolver.hpp) : Headerfile for the superclass JacobiMethodSolver, with subclasses BucklingBeamSolver, OneElectronSolver and TwoElectronSolver.
 
@@ -35,8 +33,7 @@ Git for Project 2 in Computational Physics (FYS4150).
 
 - [oneelectronssolver.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/oneelectronsolver.cpp) : Sets up the matrix A with a potential term.
 
--
-[twoelectronsolver.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/twoelectronssolver.cpp) : Sets up the matrix A with a potential term relating to the Coulomb repulsion.
+- [twoelectronsolver.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/twoelectronssolver.cpp) : Sets up the matrix A with a potential term relating to the Coulomb repulsion.
 
 -
 [test.cpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/test.cpp): Unit tests for eigenvalues and checking if max off-diagonal works as intended. Has headerfile [catch.hpp](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/catch.hpp)
@@ -48,5 +45,4 @@ Git for Project 2 in Computational Physics (FYS4150).
   2. optimize_rho: Find optimal rho for given interval.
   3. optimize_n: Find optimal n for interval and given tolerance.
 
--
-[plot_eigenvector.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_eigenvector.py) plots the eigenvectors, while and [plot_transformations.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_transformations.py) visualizes matrix transformations T as a function of N intervals of rho.
+- [plot_eigenvector.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_eigenvector.py) plots the eigenvectors, while and [plot_transformations.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_transformations.py) visualizes matrix transformations T as a function of N intervals of rho.
