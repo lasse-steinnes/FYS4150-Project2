@@ -7,7 +7,7 @@ using namespace chrono;
 
 //Setting up the superclass for Jacobi's method with rotational algorithm to be used in all derived classes
 
-void JacobiMethodSolver::initialize(int N, double rho_max){
+mat JacobiMethodSolver::initialize(int N, double rho_max){
   //initialize variables to set up Jacobis algorithm
   //to be used in all derived classes
   m_N = N;
@@ -26,6 +26,8 @@ void JacobiMethodSolver::initialize(int N, double rho_max){
       A(i,i+1) = -1; // Fill in for elements above diag
   }
   A = (1/hh)*A;
+
+  return A;
 }
 
 void JacobiMethodSolver::write_eigenvectors_to_file(){
@@ -47,9 +49,9 @@ void JacobiMethodSolver::write_eigenvectors_to_file(){
 
 //finding maximal absolute offdiagonal element of matrix A, and its specific
 //index (k,l), returns the time it took to find the element
-duration<double, milli> JacobiMethodSolver::max_offdiag_element(){
+double JacobiMethodSolver::max_offdiag_element(){
   double max_val = 0.0;
-  duration<double, milli> max_diag;
+//  duration<double, milli> max_diag;
   auto start = chrono::high_resolution_clock::now(); // Start timer
   for (int i = 0; i < m_N; i++){
     for (int j = i+1; j < m_N; j++){
@@ -64,7 +66,7 @@ duration<double, milli> JacobiMethodSolver::max_offdiag_element(){
   max_offdiag = max_val;
   auto finish = chrono::high_resolution_clock::now(); // End timer
   max_diag = finish - start;
-  return max_diag;
+  return max_offdiag;
 }
 
 //updating the elements of matrix A by rotating around the elements given index (k,l)
@@ -120,20 +122,46 @@ double Std(vector<double> v) { //Method for finding the standard deviance
   return st_dev;
 }
 
+vector<double> JacobiMethodSolver::analytic_eigenvalues() {
+  vector<double> an_val;
+  double d = 2./(h*h);
+  double a = -1./(h*h);
+  for(int i = 0; i < m_N; i++) {
+    an_val.insert(an_val.begin() + i, d + (2*a*cos((M_PI*(i+1))/m_N)));
+  }
+  return an_val;
+}
+
 vector<double> JacobiMethodSolver::solve(){
   double tol = 1.0E-10;
   transformations = 0;
   max_offdiag = 1;
-  clock_t start, finish;
-  start = clock();
+  auto start = chrono::high_resolution_clock::now();
   while (max_offdiag > tol){
-    time_max.insert(time_max.begin() + transformations, max_offdiag_element().count()); // Inserting time used for calulations each time the method is called into vector.
+    max_offdiag_element();
+    time_max.insert(time_max.begin() + transformations, max_diag.count()); // Inserting time used for calulations each time the method is called into vector.
     time_rotate.insert(time_rotate.begin() + transformations, rotating_matrixA().count()); // Inserting time used for calulations each time the method is called into vector.
     transformations++;
   }
-  finish = clock();
-  cpu_time_jacobi = 1000.0 * (finish - start)/CLOCKS_PER_SEC;  //computing CPU cpu_time_jacobi
+  auto finish = chrono::high_resolution_clock::now();
+  cpu_time_jacobi = duration_cast<milliseconds>(finish-start).count();  //computing CPU cpu_time_jacobi
+  write_relative_error_to_file();
+
   return get_eigenvalues(A, m_N);
+}
+
+void JacobiMethodSolver::write_relative_error_to_file() {
+  vector<double> an_val = analytic_eigenvalues();
+  vector<double> n_val = get_eigenvalues(A, m_N);
+  vector<double> relative_error;
+  cout << "Writing relative error to file: relativeerror_lambda" + to_string(m_N) + task + ".txt" << "\n";
+  ofstream file;
+  file.open("./Results/relativeerror_lambda" + to_string(m_N) + ".txt");
+
+  for (int i=0;i<m_N; i++){
+    relative_error.insert(relative_error.begin() + i, abs((an_val[i] - n_val[i]))/an_val[i]);
+    file << "n = " << i << " Analytic eigenvalue: " << n_val[i] << ", Numerical eigenvalue: " << an_val[i] << ", Relative error: " << relative_error[i] << "\n";
+  }
 }
 
 void JacobiMethodSolver::write_eigenvalues_and_rho_to_file(){
@@ -173,5 +201,6 @@ vector<double> JacobiMethodSolver::get_eigenvalues(mat A, int m_N) {
   for(int i = 0; i < m_N; i++) {
     eigenvalues.insert(eigenvalues.begin() + i, A(i, i));
   }
+  sort(eigenvalues.begin(), eigenvalues.end());
   return eigenvalues;
 }
