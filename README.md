@@ -7,10 +7,8 @@ Git for Project 2 in Computational Physics (FYS4150).
 * The main challenge was to create an eigenvalue solver using the Jacobi Algorithm, then apply it to differential equations known from Physics.
 1. The Buckling Beam problem
 2. Quantum mechanics harmonic oscillator potential:
--
-1 electron
--
-2 electrons
+    -1 electron
+    -2 electrons
 
 
 * Another central task was to check crucial functions of the algorithm, using unit tests. In addition, benchmarking results with time usage and relative error is performed.
