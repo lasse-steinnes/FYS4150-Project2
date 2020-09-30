@@ -68,6 +68,7 @@ int main(int argc, char const *argv[]){
     OneElectronSolver mysolver;
     cout << "Number of grid points (N) = ";
     cin >> N;
+    rho_max = 10.8171;
     mysolver.init(N,rho_max);
     mysolver.write_eigenvectors_to_file();
     mysolver.solve();
@@ -81,6 +82,7 @@ int main(int argc, char const *argv[]){
     double omega;
     cout << "Number of grid points (N) = ";
     cin >> N;
+    rho_max = 10.8171;
     cout << "Oscillating frequency (w_r) = ";
     cin >> omega;
     mysolver.init(N,rho_max,omega);

@@ -1,9 +1,13 @@
 #include "jacobimethodsolver.hpp"
 #include<iostream>
-#include<string>
+#include <iomanip>
+#include <string>
+#include <sstream>
 #include<chrono>
 using namespace std;
 using namespace chrono;
+
+
 
 //Setting up the superclass for Jacobi's method with rotational algorithm to be used in all derived classes
 
@@ -31,10 +35,12 @@ void JacobiMethodSolver::initialize(int N, double rho_max){
 void JacobiMethodSolver::write_eigenvectors_to_file(){
   vec eigval_start;
   mat eigvec_start;
+  std::stringstream stream;
+  stream << std::fixed << std::setprecision(2) << omega_r;
+  std::string omega_r_string = stream.str();
   eig_sym(eigval_start,eigvec_start,A);
-
   ofstream myfile;
-  string filename("./Results/eigenvectors" + to_string(m_N) + task + ".txt");
+  string filename("./Results/eigenvectors" + to_string(m_N) + task + "omega=" + omega_r_string + ".txt");
   myfile.open(filename);
   myfile << "rho_max " << rhoN << "\n";
   myfile << "omega_r " << omega_r << "\n";
