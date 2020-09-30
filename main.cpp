@@ -1,8 +1,9 @@
+#define CATCH_CONFIG_RUNNER // This tells Catch to not provide a main()
+#include "catch.hpp"
 #include "jacobimethodsolver.hpp"
 #include "optimizeparams.hpp"
 #include <cmath>
 #include <string>
-#include <time.h>
 #include <armadillo>
 
 using namespace arma;
@@ -89,6 +90,6 @@ int main(int argc, char const *argv[]){
     mysolver.write_eigenvalues_and_rho_to_file();
   }
 
-
+  Catch::Session().run();
   return 0;
 }
