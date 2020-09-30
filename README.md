@@ -2,7 +2,7 @@
 Git for Project 2 in Computational Physics (FYS4150).
 
 ### Main overview
-* The programs in this repository aim at solving the questions about eigenvalue problems (EVPs) posed in the project 2 description: [Project 2 - Eigenvalue Problems ](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/Report/Project2-description.pdf). The final report can be found at: 
+* The programs in this repository aim at solving the questions about eigenvalue problems (EVPs) posed in the project 2 description: [Project 2 - Eigenvalue Problems ](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/Report/Project2-description.pdf). The final report can be found at: [From the Buckling Beam Problem to Quantum Mechanics: Solving Eigenvalue Problems with Jacobi’s Method](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/Report/Aaby_Steinnes_Rahsid_Jacobi_Method_for_EVPs.pdf).
 
 * The main challenge was to create an eigenvalue solver using the Jacobi Algorithm, then apply it to differential equations known from Physics.
 1. The Buckling Beam problem
@@ -45,4 +45,4 @@ Git for Project 2 in Computational Physics (FYS4150).
   2. optimize_rho: Find optimal rho for given interval.
   3. optimize_n: Find optimal n for interval and given tolerance.
 
-- [plot_eigenvector.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_eigenvector.py) plots the eigenvectors, while and [plot_transformations.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_transformations.py) visualizes matrix transformations T as a function of N intervals of rho.
+- [plot_eigenvector.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_eigenvector.py) plots the eigenvectors and eigenvalues, while [plot_transformations.py](https://github.com/lasse-steinnes/FYS4150-Project2/blob/master/plot_transformations.py) visualizes matrix transformations T as a function of N intervals of rho.
