@@ -16,7 +16,7 @@ TEST_CASE( "Testing eigenvalues") {
   exact.insert(exact.begin() + 4, 134.35382);
 
   for(int i = 0; i < 5; i++) {
-    REQUIRE((eigval[i] - exact[i]) < tol);
+    REQUIRE((eigval[i] - exact[i]) < tol); //Check to see if each eigenvalue passes the approximation test
   }
 }
 
@@ -27,6 +27,6 @@ TEST_CASE("Checking max offdiagonal element") {
   double exact = 36;
   double tol = 1E-14;
 
-  REQUIRE((val - exact) < tol);
+  REQUIRE((val - exact) < tol); //Check to see if max_offdiag_element() returns the correct element
 
 }
