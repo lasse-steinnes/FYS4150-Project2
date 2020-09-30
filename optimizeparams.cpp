@@ -8,13 +8,13 @@ using namespace arma;
 
 void OptimizeParams::initialize(){
   m_rho = zeros(6); m_N = zeros(5);
-  m_rho(0) = 10.817; m_N(0) = 10;
+  m_rho(0) = 10.817; m_N(0) = 50;
 
   for (int i = 1; i < 6; i++){
     m_rho(i) = m_rho(i-1)*1.000005;
   }
   for (int j = 1; j < 5; j++){
-    m_N(j) = m_N(j-1)*10;
+    m_N(j) = m_N(j-1)*2;
   }
 }
 
@@ -59,6 +59,8 @@ void OptimizeParams::optimize_n(){
     if (max(num_lam - m_lambdas) < 1E-4){
       cout << "reached tolerance (1E-4) for N:" << " " << m_N(j) << endl;
       break;
+    } else{
+      cout << "did not reach tol for N:" << " " << m_N(j) << endl;
     }
   }
 }
